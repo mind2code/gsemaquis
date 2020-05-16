@@ -8,7 +8,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
-import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 @Configuration
 @EnableResourceServer
@@ -17,22 +16,21 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	@Autowired
     private ResourceServerTokenServices tokenServices;
 
-    @Autowired
-    private JwtAccessTokenConverter accessTokenConverter;
+    @Value("${security.jwt.resource-ids}")
+    private String resourceIds;
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        resources.tokenServices(tokenServices);
+        resources.resourceId(resourceIds).tokenServices(tokenServices);
     }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http
-            .requestMatchers()
-            .and()
-            .authorizeRequests()
-            .antMatchers("/actuator/**", "/api-docs/**","/oauth/*").permitAll()
-            .antMatchers("/jwttest/**" ).authenticated();
+                http
+                .requestMatchers()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/actuator/**", "/api-docs/**").permitAll()
+                .antMatchers("/springjwt/**" ).authenticated();
     }
-
 }

@@ -14,6 +14,20 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
+
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
@@ -23,7 +37,7 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo())
                 .select()
                 //.apis(RequestHandlerSelectors.any())
-                .apis(RequestHandlerSelectors.basePackage("com.oci.aie.nsocore.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.mind2codes.gsemaquis.controller"))
                 .paths(paths())
                 .build();
     }
@@ -31,8 +45,8 @@ public class SwaggerConfig {
     // Describe your apis
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("SYGAR API")
-                .description("Système de Gestion Automatisé des Ressources Réseaux")
+                .title("FoodOrder API")
+                .description("Système de Gestion des demandes de Repas")
                 .version("1.0-SNAPSHOT")
                 .build();
     }
