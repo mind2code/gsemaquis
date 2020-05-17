@@ -14,9 +14,12 @@ import javax.persistence.Table;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name="produit_prix")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ProduitPrix extends AuditModel {
 
 	@Id

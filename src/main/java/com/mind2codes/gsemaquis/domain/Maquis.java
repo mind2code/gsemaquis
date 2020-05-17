@@ -12,9 +12,12 @@ import javax.persistence.Table;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name="maquis")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Maquis extends AuditModel {
 
 	@Id
@@ -29,6 +32,12 @@ public class Maquis extends AuditModel {
 	
 	@Column(name="siteweb")
 	private String siteWeb;
+	
+	@Column(name="description")
+	private String description;
+	
+	@Column(name="adresse_maquis")
+	private String adresseMaquis;
 	
 	@ManyToOne(fetch= FetchType.LAZY, optional = false)
 	@JoinColumn(name = "organisation_id", nullable = false)
@@ -58,6 +67,22 @@ public class Maquis extends AuditModel {
 
 	public String getTelephone() {
 		return telephone;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public String getAdresseMaquis() {
+		return adresseMaquis;
+	}
+
+	public void setAdresseMaquis(String adresseMaquis) {
+		this.adresseMaquis = adresseMaquis;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public void setTelephone(String telephone) {

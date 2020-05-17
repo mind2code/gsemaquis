@@ -2,9 +2,12 @@ package com.mind2codes.gsemaquis.domain;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name="paiement_type")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PaiementType extends AuditModel {
 	
 	@Id

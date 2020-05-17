@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import com.mind2codes.gsemaquis.domain.Maquis;
 import com.mind2codes.gsemaquis.domain.Organisation;
 import com.mind2codes.gsemaquis.domain.Pays;
+import com.mind2codes.gsemaquis.domain.VwMaquis;
 import com.mind2codes.gsemaquis.repository.MaquisRepository;
+import com.mind2codes.gsemaquis.repository.VwMaquisRepository;
 import com.mind2codes.gsemaquis.services.interfaces.MaquisService;
 
 @Service
@@ -22,6 +24,9 @@ public class MaquisServiceImpl implements MaquisService {
 	
 	@Autowired
 	PaysServiceImpl paysService;
+	
+	@Autowired
+	VwMaquisRepository vwMaquisRepository;
 	
 	@Override
 	public List<Maquis> getMaquis() {
@@ -54,6 +59,12 @@ public class MaquisServiceImpl implements MaquisService {
 	public Maquis getMaquisById(long id) {
 		// TODO Auto-generated method stub
 		return maquisRepository.findById(id).get();
+	}
+
+	@Override
+	public List<VwMaquis> getVwMaquis() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

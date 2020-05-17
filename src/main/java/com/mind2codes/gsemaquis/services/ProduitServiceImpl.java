@@ -46,6 +46,8 @@ public class ProduitServiceImpl implements ProduitService {
 		// TODO Auto-generated method stub
 		try {
 			Categories categorie = categorieService.getCategoriesById(produit.getCategorie().getId());
+			if(categorie == null)
+				throw new NullPointerException("Aucun catégorie disponible");
 			produit.setCategorie(categorie);
 			return produitRepository.save(produit);
 		} catch(Exception ex) {

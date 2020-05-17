@@ -12,9 +12,12 @@ import javax.persistence.Table;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name="produits")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Produits extends AuditModel {
 
 	@Id
@@ -23,6 +26,9 @@ public class Produits extends AuditModel {
 	
 	@Column(name="libelle")
 	private String libelle;
+	
+	@Column(name="description")
+	private String description;
 	
 	@Column(name="image_url")
 	private String imageUrl;
@@ -37,6 +43,14 @@ public class Produits extends AuditModel {
 	
 	@Column(name="userid")
 	private long userId;
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	public long getId() {
 		return id;

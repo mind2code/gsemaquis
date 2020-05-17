@@ -2,9 +2,12 @@ package com.mind2codes.gsemaquis.domain;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name="statuts")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Statuts extends AuditModel {
 
 	@Id

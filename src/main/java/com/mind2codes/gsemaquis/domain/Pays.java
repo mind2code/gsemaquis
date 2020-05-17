@@ -6,9 +6,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name="pays")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Pays extends AuditModel {
 	
 	@Id

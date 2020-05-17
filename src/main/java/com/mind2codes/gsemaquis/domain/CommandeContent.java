@@ -5,9 +5,12 @@ import javax.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name="commande_content")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class CommandeContent extends AuditModel {
 
 	@Id

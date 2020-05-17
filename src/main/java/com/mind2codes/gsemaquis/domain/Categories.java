@@ -12,9 +12,12 @@ import javax.persistence.Table;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name="categories")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Categories extends AuditModel {
 
 	@Id
