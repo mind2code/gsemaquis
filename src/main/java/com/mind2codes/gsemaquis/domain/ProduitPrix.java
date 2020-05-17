@@ -36,4 +36,50 @@ public class ProduitPrix extends AuditModel {
 	
 	@Column(name="date_fin")
 	private Date dateFin;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Produits getProduit() {
+		return produit;
+	}
+
+	public void setProduit(Produits produit) {
+		this.produit = produit;
+	}
+
+	public double getPrix() {
+		return prix;
+	}
+
+	public void setPrix(double prix) {
+		this.prix = prix;
+	}
+
+	public Date getDateDebut() {
+		return dateDebut;
+	}
+
+	public void setDateDebut(Date dateDebut) {
+		this.dateDebut = dateDebut;
+	}
+
+	public Date getDateFin() {
+		return dateFin;
+	}
+
+	public void setDateFin(Date dateFin) {
+		this.dateFin = dateFin;
+	}
+
+	public ProduitPrix() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 }
