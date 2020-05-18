@@ -7,6 +7,9 @@ mvn install ou mvn compile.
 
 
 
-lien swagger pour la consultation des API
+# Documentations des API
+Le lien ci-dessous permet d'avoir accès à la version demo des API de l'application
 
-http://localhost:8082/api/swagger-ui.html
+https://gseportail.herokuapp.com/api/swagger-ui.html#/
+
+Pour l'exécution des API, veuillez utiliser Postman pour la génération d'un token avant de continuer.
