@@ -1,5 +1,8 @@
 package com.mind2codes.gsemaquis.domain;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
@@ -43,6 +47,9 @@ public class Produits extends AuditModel {
 	
 	@Column(name="userid")
 	private long userId;
+	
+	@OneToMany(mappedBy="produit", cascade=CascadeType.ALL)
+    private Set<ProduitPrix> produitPrix;
 
 	public String getDescription() {
 		return description;
@@ -54,6 +61,14 @@ public class Produits extends AuditModel {
 
 	public long getId() {
 		return id;
+	}
+
+	public Set<ProduitPrix> getProduitPrix() {
+		return produitPrix;
+	}
+
+	public void setProduitPrix(Set<ProduitPrix> produitPrix) {
+		this.produitPrix = produitPrix;
 	}
 
 	public void setId(long id) {

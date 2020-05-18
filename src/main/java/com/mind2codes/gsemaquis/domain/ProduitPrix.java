@@ -37,7 +37,7 @@ public class ProduitPrix extends AuditModel {
 	@Column(name="date_debut")
 	private Date dateDebut;
 	
-	@Column(name="date_fin")
+	@Column(name="date_fin", nullable=true)
 	private Date dateFin;
 
 	public long getId() {

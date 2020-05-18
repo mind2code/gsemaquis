@@ -1,13 +1,20 @@
 package com.mind2codes.gsemaquis.services;
 
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mind2codes.gsemaquis.domain.Categories;
+import com.mind2codes.gsemaquis.domain.ProduitPrix;
 import com.mind2codes.gsemaquis.domain.Produits;
+import com.mind2codes.gsemaquis.helpers.Utilities;
+import com.mind2codes.gsemaquis.repository.ProduitPrixRepository;
 import com.mind2codes.gsemaquis.repository.ProduitsRepository;
+import com.mind2codes.gsemaquis.requests.ProduitRequest;
 import com.mind2codes.gsemaquis.services.interfaces.ProduitService;
 
 @Service
@@ -18,6 +25,9 @@ public class ProduitServiceImpl implements ProduitService {
 	
 	@Autowired
 	CategorieServiceImpl categorieService;
+	
+	@Autowired
+	ProduitPrixRepository produitPrixRepository;
 	
 	@Override
 	public List<Produits> getProduits() {
@@ -42,14 +52,35 @@ public class ProduitServiceImpl implements ProduitService {
 	}
 
 	@Override
-	public Produits createProduits(Produits produit) {
+	public Produits createProduits(ProduitRequest request) {
 		// TODO Auto-generated method stub
 		try {
-			Categories categorie = categorieService.getCategoriesById(produit.getCategorie().getId());
+			Produits produit = new Produits();
+			Categories categorie = categorieService.getCategoriesById(request.getCategorieId());
 			if(categorie == null)
 				throw new NullPointerException("Aucun catégorie disponible");
 			produit.setCategorie(categorie);
-			return produitRepository.save(produit);
+			
+			produit.setLibelle(request.getLibelle());
+			produit.setDescription(request.getDescription());
+			produit.setImageUrl(request.getImageUrl());
+			produit.setUserId(1);
+			produit.setDelete(false);
+			
+			ProduitPrix produitPrix = new ProduitPrix();
+			
+			
+			produitPrix.setPrix(request.getPrix());
+			produitPrix.setDateDebut(new Date());
+			
+			Set<ProduitPrix> prod = new HashSet<ProduitPrix>();
+			
+			produitPrix.setProduit(produit);
+			prod.add(produitPrix);
+			produit.setProduitPrix(prod);
+			
+			produitRepository.save(produit);
+			return produit;
 		} catch(Exception ex) {
 			throw ex;
 		}

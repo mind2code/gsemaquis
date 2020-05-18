@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mind2codes.gsemaquis.domain.Produits;
+import com.mind2codes.gsemaquis.requests.ProduitRequest;
 import com.mind2codes.gsemaquis.services.ProduitServiceImpl;
 
 @RestController
@@ -27,7 +28,7 @@ public class ProduitController {
 	
 	@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('GERANT')")
 	@PostMapping("/produits")
-	public ResponseEntity<Produits> createProduits(@RequestBody Produits produit) {
+	public ResponseEntity<Produits> createProduits(@RequestBody ProduitRequest produit) {
 		return ResponseEntity.ok(produitService.createProduits(produit));
 	}
 }
