@@ -2,8 +2,11 @@ package com.mind2codes.gsemaquis.domain;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="vw_maquis")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class VwMaquis {
 
 	@Id
@@ -19,7 +22,7 @@ public class VwMaquis {
 	@Column(name="adresse")
 	private String adresseMaquis;
 	
-	@Column(name="telephoneMaquis")
+	@Column(name="telephone")
 	private String telephoneMaquis;
 	
 	@Column(name="description")

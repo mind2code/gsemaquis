@@ -3,6 +3,9 @@ package com.mind2codes.gsemaquis.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.mind2codes.gsemaquis.domain.Maquis;
@@ -29,10 +32,11 @@ public class MaquisServiceImpl implements MaquisService {
 	VwMaquisRepository vwMaquisRepository;
 	
 	@Override
-	public List<Maquis> getMaquis() {
+	public Page<Maquis> getMaquis() {
 		// TODO Auto-generated method stub
 		try {
-			return maquisRepository.findAll();
+			Pageable pageable = PageRequest.of(0, 2);
+			return maquisRepository.findAll(pageable);
 		} catch(Exception ex) {
 			throw new NullPointerException("Aucun maquis");
 		}
@@ -64,7 +68,7 @@ public class MaquisServiceImpl implements MaquisService {
 	@Override
 	public List<VwMaquis> getVwMaquis() {
 		// TODO Auto-generated method stub
-		return null;
+		return vwMaquisRepository.findAll();
 	}
 
 }

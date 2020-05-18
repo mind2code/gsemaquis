@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MaquisService } from '../services/maquis.service';
+import { Maquis } from '../models/maquis.model';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  maquis: Maquis[];
+
+  constructor(private maquisService: MaquisService) { }
 
   ngOnInit() {
+    this.maquisService.getMaquis().subscribe( result => {
+      this.maquis = result;
+      console.log(this.maquis);
+    });
   }
 
 }
