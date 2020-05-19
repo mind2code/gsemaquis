@@ -32,11 +32,11 @@ public class MaquisServiceImpl implements MaquisService {
 	VwMaquisRepository vwMaquisRepository;
 	
 	@Override
-	public Page<Maquis> getMaquis() {
+	public List<Maquis> getMaquis() {
 		// TODO Auto-generated method stub
 		try {
-			Pageable pageable = PageRequest.of(0, 2);
-			return maquisRepository.findAll(pageable);
+			//Pageable pageable = PageRequest.of(0, 2);
+			return maquisRepository.findAll();
 		} catch(Exception ex) {
 			throw new NullPointerException("Aucun maquis");
 		}

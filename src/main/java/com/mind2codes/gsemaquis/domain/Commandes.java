@@ -33,16 +33,19 @@ public class Commandes extends AuditModel {
 	@Column(name="remise")
 	private double remise;
 	
+	@JsonIgnore
 	@ManyToOne(fetch= FetchType.LAZY, optional = false)
 	@JoinColumn(name = "client_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
 	private User client;
+	
 	
 	@ManyToOne(fetch= FetchType.LAZY, optional = false)
 	@JoinColumn(name = "statuts_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
 	private Statuts statuts;
 	
+	@JsonIgnore
 	@ManyToOne(fetch= FetchType.LAZY, optional = false)
 	@JoinColumn(name = "maquis_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)

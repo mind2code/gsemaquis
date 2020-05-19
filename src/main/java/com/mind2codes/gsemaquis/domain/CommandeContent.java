@@ -5,6 +5,7 @@ import javax.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @SuppressWarnings("serial")
@@ -21,7 +22,8 @@ public class CommandeContent extends AuditModel {
 	@JoinColumn(name = "produit_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
 	private Produits produit;
-	
+
+	@JsonIgnore
 	@ManyToOne(fetch= FetchType.LAZY, optional = false)
 	@JoinColumn(name = "commande_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)

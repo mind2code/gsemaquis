@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import com.mind2codes.gsemaquis.domain.Maquis;
 
 @Repository
-public interface MaquisRepository extends PagingAndSortingRepository<Maquis, Long> {
+public interface MaquisRepository extends JpaRepository<Maquis, Long> {
 
 }

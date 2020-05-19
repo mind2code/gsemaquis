@@ -22,7 +22,7 @@ public class MaquisController {
 	MaquisServiceImpl maquisService;
 	
 	@GetMapping("/maquis")
-	public ResponseEntity<Page<Maquis>> getMaquis() {
+	public ResponseEntity<List<Maquis>> getMaquis() {
 		return ResponseEntity.ok(maquisService.getMaquis());
 	}
 	

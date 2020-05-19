@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,9 +25,16 @@ public class CommandesController {
 		return ResponseEntity.ok(commandeServiceImpl.saveCommandes(commande));
 	}
 	
-	@PreAuthorize("hasAuthority('ADMIN')")
-	@PostMapping("/commandes/{maquisId}")
+	//@PreAuthorize("hasAuthority('ADMIN')")
+	@GetMapping("/commandes/maquis/{maquisId}")
 	public ResponseEntity<List<Commandes>> getCommandes(@PathVariable("maquisId") long maquisId) {
 		return ResponseEntity.ok(commandeServiceImpl.getCommandesByMaquis(maquisId));
 	}
+	
+	@GetMapping("/commandes/client/{userId}")
+	public ResponseEntity<List<Commandes>> getCommandesByClient(@PathVariable("userId") long clientId) {
+		return ResponseEntity.ok(commandeServiceImpl.getCommandesByClientsId(clientId));
+	}
+	
+ 
 }

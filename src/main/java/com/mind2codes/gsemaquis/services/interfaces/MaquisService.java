@@ -10,7 +10,7 @@ import com.mind2codes.gsemaquis.domain.VwMaquis;
 
 public interface MaquisService {
 
-	Page<Maquis> getMaquis();
+	List<Maquis> getMaquis();
 	
 	Maquis createMaquis(Maquis maquis);
 	Maquis getMaquisById(long id);
