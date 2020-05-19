@@ -22,6 +22,19 @@ public class CommandeContent extends AuditModel {
     @OnDelete(action = OnDeleteAction.CASCADE)
 	private Produits produit;
 	
+	@ManyToOne(fetch= FetchType.LAZY, optional = false)
+	@JoinColumn(name = "commande_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+	private Commandes commande;
+	
+	public Commandes getCommande() {
+		return commande;
+	}
+
+	public void setCommande(Commandes commande) {
+		this.commande = commande;
+	}
+
 	@Column(name="prix_produit")
 	private double prixProduit;
 	

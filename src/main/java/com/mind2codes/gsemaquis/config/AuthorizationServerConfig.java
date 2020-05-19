@@ -1,75 +1,68 @@
 package com.mind2codes.gsemaquis.config;
 
-import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
-import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+
 
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-	@Value("${security.jwt.client-id}")
-	private String clientId;
-
-	@Value("${security.jwt.client-secret}")
-	private String clientSecret;
-
-	@Value("${security.jwt.grant-type}")
-	private String grantType;
-
-	@Value("${security.jwt.scope-read}")
-	private String scopeRead;
-
-	@Value("${security.jwt.scope-write}")
-	private String scopeWrite = "write";
-
-	@Value("${security.jwt.resource-ids}")
-	private String resourceIds;
-
-	@Autowired
-	private TokenStore tokenStore;
-
-	@Autowired
-	private JwtAccessTokenConverter accessTokenConverter;
+	static final String CLIEN_ID = "devglan-client";
+	//static final String CLIENT_SECRET = "devglan-secret";
+	static final String CLIENT_SECRET ="$2a$04$e/c1/RfsWuThaWFCrcCuJeoyvwCV0URN/6Pn9ZFlrtIWaU/vj/BfG";
+	static final String GRANT_TYPE_PASSWORD = "password";
+	static final String AUTHORIZATION_CODE = "authorization_code";
+	static final String REFRESH_TOKEN = "refresh_token";
+	static final String IMPLICIT = "implicit";
+	static final String SCOPE_READ = "read";
+	static final String SCOPE_WRITE = "write";
+	static final String TRUST = "trust";
+	static final int ACCESS_TOKEN_VALIDITY_SECONDS = 1*60*60;
+	static final int FREFRESH_TOKEN_VALIDITY_SECONDS = 6*60*60;
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	@Bean
+	public JwtAccessTokenConverter accessTokenConverter() {
+		JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+		converter.setSigningKey("as466gf");
+		return converter;
+	}
 
-	@Override
-	public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
-		configurer
-		        .inMemory()
-		        .withClient(clientId)
-				.secret(passwordEncoder.encode(clientSecret))
-				.accessTokenValiditySeconds(3600)
-	            .refreshTokenValiditySeconds(3600)
-		        .authorizedGrantTypes(grantType)
-		        .scopes(scopeRead, scopeWrite)
-		        .resourceIds(resourceIds);
+	@Bean
+	public TokenStore tokenStore() {
+		return new JwtTokenStore(accessTokenConverter());
 	}
 
 	@Override
-	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
-		enhancerChain.setTokenEnhancers(Arrays.asList(accessTokenConverter));
-		endpoints.tokenStore(tokenStore)
-		        .accessTokenConverter(accessTokenConverter)
-		        .tokenEnhancer(enhancerChain)
-		        .authenticationManager(authenticationManager);
+	public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
+
+		configurer
+				.inMemory()
+				.withClient(CLIEN_ID)
+				.secret(CLIENT_SECRET)
+				.authorizedGrantTypes(GRANT_TYPE_PASSWORD, AUTHORIZATION_CODE, REFRESH_TOKEN, IMPLICIT )
+				.scopes(SCOPE_READ, SCOPE_WRITE, TRUST)
+				.accessTokenValiditySeconds(ACCESS_TOKEN_VALIDITY_SECONDS).
+				refreshTokenValiditySeconds(FREFRESH_TOKEN_VALIDITY_SECONDS);
+	}
+
+	@Override
+	public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
+		endpoints.tokenStore(tokenStore())
+				.authenticationManager(authenticationManager)
+				.accessTokenConverter(accessTokenConverter());
 	}
 
 }

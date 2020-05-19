@@ -8,6 +8,6 @@ import com.mind2codes.gsemaquis.domain.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
 
-	User findByUsername(String userName);
+	User findByEmail(String userName);
 
 }

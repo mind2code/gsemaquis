@@ -15,7 +15,7 @@ public class Statuts extends AuditModel {
 	private long id;
 	
 	@Column(name="libelle")
-	private long libelle;
+	private String libelle;
 	
 	@Column(name="is_delete")
 	private boolean isDelete;
@@ -31,11 +31,11 @@ public class Statuts extends AuditModel {
 		this.id = id;
 	}
 
-	public long getLibelle() {
+	public String getLibelle() {
 		return libelle;
 	}
 
-	public void setLibelle(long libelle) {
+	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
 

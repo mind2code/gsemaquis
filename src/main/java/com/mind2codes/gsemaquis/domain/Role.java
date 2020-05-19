@@ -1,11 +1,19 @@
 package com.mind2codes.gsemaquis.domain;
 
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="app_role")
@@ -22,6 +30,14 @@ public class Role {
 
     @Column(name="description")
     private String description;
+    
+    @JsonIgnore
+    @ManyToMany(
+            cascade = {
+                CascadeType.PERSIST
+            },
+            mappedBy = "roles")
+    private Set<User> user = new HashSet<>();
 
     public long getId() {
         return id;
@@ -46,6 +62,14 @@ public class Role {
     public void setDescription(String description) {
         this.description = description;
     }
+
+	public Set<User> getUser() {
+		return user;
+	}
+
+	public void setUser(Set<User> user) {
+		this.user = user;
+	}
 
 	/**
 	 * @param id
